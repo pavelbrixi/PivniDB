@@ -1,0 +1,107 @@
+CREATE TABLE Pivovary (
+    PivovarID SERIAL PRIMARY KEY,
+    Nazev VARCHAR(255) NOT NULL,
+    Lokace VARCHAR(255),
+    Zalozen INT
+);
+
+CREATE TABLE Typy (
+    TypID SERIAL PRIMARY KEY,
+    Nazev VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Piva (
+    PivoID SERIAL PRIMARY KEY,
+    Nazev VARCHAR(255) NOT NULL,
+    TypID INT,
+    ABV DECIMAL(4, 2),
+    IBU INT,
+    PivovarID INT,
+    FOREIGN KEY (PivovarID) REFERENCES Pivovary(PivovarID),
+    FOREIGN KEY (TypID) REFERENCES Typy(TypID)
+);
+
+CREATE TABLE Ziviny (
+    ZivinaID SERIAL PRIMARY KEY,
+    Nazev VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Nutricni_hodnoty (
+    PivoID INT,
+    ZivinaID INT,
+    Mnozstvi DECIMAL(10, 2),
+    PRIMARY KEY (PivoID, ZivinaID),
+    FOREIGN KEY (PivoID) REFERENCES Piva(PivoID),
+    FOREIGN KEY (ZivinaID) REFERENCES Ziviny(ZivinaID)
+);
+
+CREATE TABLE Uzivatele (
+    UzivatelID SERIAL PRIMARY KEY,
+    Uzivatelske_jmeno VARCHAR(255) UNIQUE NOT NULL,
+    Email VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE Recenze (
+    RecenzeID SERIAL PRIMARY KEY,
+    PivoID INT,
+    UzivatelID INT,
+    Hodnoceni INT CHECK (Hodnoceni >= 1 AND Hodnoceni <= 5),
+    Komentar TEXT,
+    FOREIGN KEY (PivoID) REFERENCES Piva(PivoID),
+    FOREIGN KEY (UzivatelID) REFERENCES Uzivatele(UzivatelID)
+);
+
+CREATE TABLE Udalosti (
+    UdalostID SERIAL PRIMARY KEY,
+    Nazev VARCHAR(255) NOT NULL,
+    Lokace VARCHAR(255),
+    Datum DATE,
+    Cas VARCHAR(5),
+    PivovarID INT,
+    FOREIGN KEY (PivovarID) REFERENCES Pivovary(PivovarID)
+);
+
+CREATE TABLE Zamestnanci (
+    ZamestnanecID SERIAL PRIMARY KEY,
+    Jmeno_a_Prijmeni VARCHAR(255) NOT NULL,
+    Pozice VARCHAR(100) NOT NULL,
+    Uzivatelske_jmeno VARCHAR(100) UNIQUE NOT NULL,
+    Heslo VARCHAR(100) NOT NULL,
+    PivovarID INT NOT NULL,
+    Nadrizena_osoba INT NULL,
+    FOREIGN KEY (PivovarID) REFERENCES Pivovary(PivovarID),
+    FOREIGN KEY (Nadrizena_osoba) REFERENCES Zamestnanci(ZamestnanecID)
+);
+
+CREATE TABLE Audit_log (
+    LogID SERIAL PRIMARY KEY,
+    Tabulka VARCHAR(255),
+    Akce VARCHAR(10),  -- INSERT, UPDATE, DELETE
+    PivoID INT,
+    Predchozi_hodnota VARCHAR(255),
+    Nova_hodnota VARCHAR(255),
+    Datum_Cas TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Uživatel VARCHAR(255)
+);
+
+CREATE TABLE Sklad (
+    SkladID SERIAL PRIMARY KEY,
+    PivovarID INT NOT NULL,
+    Surovina VARCHAR(50) NOT NULL,
+    Mnozstvi NUMERIC(10, 2) NOT NULL,
+    Jednotka VARCHAR(20) NOT NULL,
+    Datum_posledni_dodavky DATE,
+    FOREIGN KEY (PivovarID) REFERENCES Pivovary(PivovarID) ON DELETE CASCADE
+);
+
+CREATE TABLE Sklad_log (
+    LogID SERIAL PRIMARY KEY,
+    Cas_zmeny TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Akce VARCHAR(10) NOT NULL, -- INSERT, UPDATE, DELETE
+    SurovinaID INT NOT NULL,
+    PivovarID INT NOT NULL,
+    Puvodni_mnozstvi DECIMAL(10, 2),
+    Nova_mnozstvi DECIMAL(10, 2),
+    FOREIGN KEY (SurovinaID) REFERENCES Sklad(SurovinaID),
+    FOREIGN KEY (PivovarID) REFERENCES Sklad(PivovarID)
+);
