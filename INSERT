@@ -401,6 +401,7 @@ INSERT INTO Sklad (PivovarID, Surovina, Mnozstvi, Jednotka, Datum_posledni_dodav
 -- Udalosti - kudyznudy.cz
 -- Ziviny - kaloricketabulky.cz
 -- Piva - pivniatlas.cz
+-- Pivovary - wikipedia.org
 -- Recenze, Uzivatele, Zamestnanci - chatgpt.com
 
 -- Data výživových hodnot jsou orientační.
