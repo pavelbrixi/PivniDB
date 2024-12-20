@@ -75,7 +75,8 @@ INSERT INTO Pivovary (Nazev, Lokace, Zalozen) VALUES
 ('Pivovar Rychtář', 'Hlinsko', 1913),
 ('Pivovar Vysoký Chlumec', 'Vysoký Chlumec', 1992),
 ('Pivovar Černá Hora', 'Černá Hora', 1298),
-('Minipivovar Proud', 'Plzeň', 2020);
+('Minipivovar Proud', 'Plzeň', 2020),
+('United Breweries', 'New York', 1857);
 
 -- INSERT do tabulky Nutricni_hodnoty
 
@@ -380,7 +381,9 @@ INSERT INTO Zamestnanci (Jmeno_a_Prijmeni, Pozice, Uzivatelske_jmeno, Heslo, Piv
 ('Petra Dvořáková', 'Sládek', 'pdvorakova', 'tajneheslo', 1, 1),
 ('Karel Svoboda', 'Pomocný pracovník', 'ksvoboda', 'mojeheslo', 1, 2),
 ('Alena Novotná', 'Vedoucí výroby', 'anovotna', 'admin123', 2, NULL),
-('Petr Malý', 'Slaádek', 'pmaly', '12345', 2, 4);
+('Petr Malý', 'Sládek', 'pmaly', '12345', 2, 4),
+('Karel Vomáčka', 'Vedoucí skladu', 'skladadmin', 'sklad123', 1000, NULL),
+('postgres', 'Administrátor', 'postgres', 'toor', 1000, NULL);
 
 -- INSERTy do tabulky Sklad
 
