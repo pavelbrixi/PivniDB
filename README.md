@@ -1,13 +1,30 @@
 
 
 # PivniDB
-Semestrální projekt na předmět [Relační databázové systémy](https://portal.ujep.cz/portal/studium/prohlizeni.html?pc_pagenavigationalstate=AAAAAQAGMjMzOTM3EwEAAAABAAhzdGF0ZUtleQAAAAEAFC05MjIzMzcyMDM2ODU0NzcwMjI3AAAAAA**#prohlizeniSearchResult)
+Semestrální projekt na předmět [Relační databázové systémy](https://portal.ujep.cz/portal/studium/prohlizeni.html?pc_pagenavigationalstate=AAAAAQAGMjMzOTM3EwEAAAABAAhzdGF0ZUtleQAAAAEAFC05MjIzMzcyMDM2ODU0NzcyNjQ3AAAAAA**#prohlizeniSearchResult)
 
 Cílem této semestrální práce bylo vytvořit databázi o libovolném tématu, pochopit problematiku a splnit požadavky obsažené v následujícím dokumentu:
 
 [RDBS_Pozadavky-zapocet-2024.pdf](https://github.com/pavelbrixi/PivniDB/blob/main/RDBS_Pozadavky-zapocet-2024.pdf)
 
-Moje databáze řeší problematiku skladového hospodářství velké skupiny pivovarů. Ve své práci jsem se zaměřil na hlídání stavu surovin ve skladu, kdo k datům má přístup a kdo, kdy a jak se surovinami nakládal. 
+### Úvod
+
+Tento projekt řeší problematiku skladového hospodářství velké skupiny pivovarů s naázvem United Breweries. Hlavním cílem je vytvořit efektivní databázové řešení, které usnadňuje sledování zásob surovin, správu přístupu k datům a zajištění transparentnosti při manipulaci se skladovými zásobami.
+
+Databáze je navržena tak, aby poskytovala odpovědi na klíčové otázky, jako například:
+
+- Jaké množství surovin je aktuálně k dispozici v jednotlivých pivovarech?
+- Kdo provedl konkrétní operace se surovinami a kdy?
+- Jaké suroviny vyžadují doplnění, aby nedošlo k narušení výrobního procesu?
+
+Projekt se zaměřuje nejen na funkčnost a správu dat, ale i na zabezpečení citlivých informací. Použitím relační databáze je možné snadno analyzovat data, generovat reporty a automatizovat rutinní operace, jako je hlídání stavu surovin a upozorňování na jejich nedostatek.
+
+### Navigace
+
+- [Soubor SQL](https://github.com/pavelbrixi/PivniDB/blob/main/PivniDBv2.sql)
+- [Textový soubor obsahující příkazy CREATE TABLE pro vytvoření tabulek](https://github.com/pavelbrixi/PivniDB/blob/main/CREATE%20TABLE)
+- [Textový soubor obsahující příkazy INSERT pro vložení dat do tabulek](https://github.com/pavelbrixi/PivniDB/blob/main/INSERT)
+- [Komprimovaný soubor obsahující python soubory pro spuštění a ovládání ORM](https://github.com/pavelbrixi/PivniDB/blob/main/orm_project.zip)
 
 # ERD
 
@@ -306,3 +323,13 @@ UPDATE Sklad
 SET Mnozstvi = 9000.00 
 WHERE Surovina = 'Voda' AND PivovarID = 1;
 ```
+
+# ORM
+
+### Nápověda 
+Po stažení a importu databáze do programu pgAdmin a po extrahování souborů z adresáře orm_project.zip je otevřete ve vhodném IDE. Po spuštění hlavního python souboru (main.py) můžete začít ovládat ORM. Příkazy:
+- help (nápověda)
+- sklad (zobrazení skladových zásob)
+- sklad_log (zobrazení všech dodávek či spotřebování)
+- logout (ukončení programu)
+
